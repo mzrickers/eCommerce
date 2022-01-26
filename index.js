@@ -20,8 +20,18 @@ app.get('/', (req, res) => {
   `);
 });
 
-app.post('/', (req, res) => {
-  console.log(req.body);
+app.post('/', async (req, res) => {
+  const { email, password, passwordConfirmation } = req.body;
+
+  const existingUser = await usersRepo.getOneBy({ email });
+  if (existingUser) {
+    return res.send('Email in use');
+  }
+
+  if (password !== passwordConfirmation) {
+    return res.send('Passwords must match');
+  }
+
   res.send('Account created!!!');
 });
 
