@@ -31,6 +31,8 @@ class UsersRepository {
     records.push(attrs);
 
     await this.writeAll(records);
+
+    return attrs;
     
   }
 
@@ -73,7 +75,7 @@ class UsersRepository {
 
       for (let key in filters) {
         if  (record[key] !== filters[key]) {
-          found === false;
+          found = false;
         }
       }
 
